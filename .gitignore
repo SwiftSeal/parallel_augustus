@@ -1,3 +1,4 @@
 build
 *.pyc
 parallel_augustus.egg-info
+dist
