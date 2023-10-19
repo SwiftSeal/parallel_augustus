@@ -14,7 +14,6 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     author=["Benjamin Istace"],
-    author_email=["bistace@genoscope.cns.fr"],
     url="https://github.com/bistace/parallel_augustus",
     download_url="https://github.com/bistace/parallel_augustus",
     keywords=[
