@@ -8,7 +8,7 @@ with open(path.join(this_directory, "README.md")) as f:
 setup(
     name="parallel_augustus",
     packages=["parallel_augustus"],
-    version="1.0.0",
+    version="1.0.1",
     license="CeCILL",
     description="Simple wrapper around Augustus to bring faster restitution times",
     long_description=long_description,

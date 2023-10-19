@@ -148,10 +148,14 @@ def concatenate_results():
 
     for chunk in glob.glob("augustus/*.gff"):
         with open(chunk) as inf:
+            # Skip the header
+            line = ""
+            while line != "#\n":
+                line = inf.readline()
+
             for line in inf:
-                if not line.startswith("#"):
-                    line = line.rstrip("\n")
-                    out.write(f"{line}\n")
+                line = line.rstrip("\n")
+                out.write(f"{line}\n")
 
     out.close()
     logging.info("Done. Results can be found in augustus.gff.")
