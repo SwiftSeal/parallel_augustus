@@ -91,15 +91,21 @@ def create_chunks(genome: str, genome_size: int, chunks: int):
 def launch_augustus(processes: int, params: str):
     logging.info("Launching Augustus on each chunk")
 
+    augustus_params = []
+    if params:
+        for p in params:
+            param = p.split(" ")
+            for pa in param:
+                augustus_params.append(pa)
+
     procs = []
     for chunk in glob.glob("chunks/*.fasta"):
         chunk_prefix = chunk.split("/")[-1].replace(".fasta", "")
 
         cmd = ["augustus"]
-        if params:
-            for p in params:
-                cmd.append(p)
         cmd.append(chunk)
+        for p in augustus_params:
+            cmd.append(p)
 
         with open("logs/augustus.cmds", "a") as cmd_file:
             print(" ".join(cmd), flush=True, file=cmd_file)
