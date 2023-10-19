@@ -1,4 +1,4 @@
-# Efficiently running Augustus in multi-core environments
+# Efficiently run Augustus in multi-core environments
 `parallel_augustus` cuts the input genome in chunks to feed to Augustus. The number of chunks and Augustus processes launched in parallel are configurable.
 
 # Installation
