@@ -23,6 +23,6 @@ parallel_augustus -g genome.fasta \
     -o augustus_results \
     -c 500 \
     -p 20 \
-    --extra '--species=human'
+    --extra '--species=human --gff3=on'
 ```
 This command creates the output directory `augustus_results`, divides the genome into 500 chunks and launches 20 processes of Augustus in parallel. At the end, results are concatenated into `augustus_results/augustus.gff`.
