@@ -1,11 +1,14 @@
 from Bio import SeqIO
 import logging
+import numpy as np
 import os
+import warnings
 
 
-def run(genome: str, output_dir: str):
+def run(genome: str, output_dir: str, chunks: int):
     create_directories(output_dir)
     genome_size = get_genome_size(genome)
+    create_chunks(genome, genome_size, chunks)
 
 
 def create_directories(output_dir):
@@ -38,5 +41,37 @@ def get_genome_size(genome):
     with open(genome) as genome_file:
         for record in SeqIO.parse(genome_file, "fasta"):
             cumul_size += len(record.seq)
-    logging.info(f"Parsed {cumul_size} bases")
+    logging.debug(f"Parsed {cumul_size} bases")
     return cumul_size
+
+
+def create_chunks(genome, genome_size, chunks):
+    logging.info(f"Trying to fragment input genome into {chunks} chunks")
+
+    chunk_size = genome_size / chunks
+
+    chunk_sizes = []
+    current_chunk = 1
+    current_chunk_size = 0
+    current_chunk_file = open("chunks/chunks_1.fasta", "w")
+
+    with open(genome) as g, warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+
+        for record in SeqIO.parse(g, "fasta"):
+            if current_chunk_size >= chunk_size and current_chunk != chunks:
+                current_chunk_file.close()
+                current_chunk_file = open(f"chunks/chunks_{current_chunk + 1}.fasta", "w")
+                current_chunk += 1
+                chunk_sizes.append(current_chunk_size)
+                current_chunk_size = 0
+
+            current_chunk_file.write(record.format("fasta"))
+            current_chunk_size += len(record.seq)
+
+        chunk_sizes.append(current_chunk_size)
+        current_chunk_file.close()
+    
+    median_chunk_size = np.median(chunk_sizes)
+    nb_chunks = len(chunk_sizes)
+    logging.info(f"Created {nb_chunks} chunks with a median size of {int(median_chunk_size)} bases")

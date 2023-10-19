@@ -56,4 +56,4 @@ def main():
 
     args.input_genome = os.path.abspath(args.input_genome)
     checks.run_checks(args.input_genome)
-    pipeline.run(args.input_genome, args.output_dir)
+    pipeline.run(args.input_genome, args.output_dir, args.chunks)

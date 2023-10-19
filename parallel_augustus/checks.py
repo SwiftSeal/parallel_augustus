@@ -19,7 +19,7 @@ def check_dependencies():
             logging.error(f"{tool} not found")
             missing_dependency = True
         else:
-            logging.info(f"Found {tool}")
+            logging.debug(f"Found {tool}")
 
     if missing_dependency:
         exit(-1)
