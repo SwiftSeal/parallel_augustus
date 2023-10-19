@@ -2,6 +2,7 @@ import argparse
 import logging
 import coloredlogs
 import os
+import sys
 
 from parallel_augustus import checks
 from parallel_augustus import pipeline
@@ -39,10 +40,30 @@ def main():
         "-c",
         action="store",
         dest="chunks",
-        help="Number of chunks to divide the genome into. Also corresponds to the number of Augustus process to launch.",
+        help="Number of chunks to divide the genome into.",
         default=8,
         type=int,
         required=False,
+    )
+    mandatory_args.add_argument(
+        "--processes",
+        "-p",
+        action="store",
+        dest="processes",
+        help="Number of Augustus processes to launch in parallel",
+        default=8,
+        type=int,
+        required=True,
+    )
+
+    mandatory_args.add_argument(
+        "--extra",
+        "-e",
+        action="store",
+        dest="augustus_params",
+        type=str,
+        nargs=argparse.REMAINDER,
+        help="Parameters to pass to augustus between quotes and separated by spaces. Example: --extra '--species=human --protein=on'",
     )
 
     args = parser.parse_args()
@@ -53,7 +74,12 @@ def main():
         datefmt="%Y-%m-%d %H:%M:%S",
     )
 
-
     args.input_genome = os.path.abspath(args.input_genome)
     checks.run_checks(args.input_genome)
-    pipeline.run(args.input_genome, args.output_dir, args.chunks)
+    pipeline.run(
+        args.input_genome,
+        args.output_dir,
+        args.chunks,
+        args.processes,
+        args.augustus_params,
+    )

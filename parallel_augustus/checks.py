@@ -25,5 +25,5 @@ def check_dependencies():
         exit(-1)
 
 
-def is_in_path(tool):
+def is_in_path(tool: str):
     return shutil.which(tool) is not None
