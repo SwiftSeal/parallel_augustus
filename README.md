@@ -14,6 +14,7 @@ pip install --user parallel_augustus
 Before launching `parallel_augustus`, please make sure that Augustus is available in your path. If you run `augustus -h` and do not encounter an error, you are good to go.
 
 `parallel_augustus` first divides the genome (`-g` argument) in the desired number of chunks (`-c` argument, it can be any number > 1). After that it launches `-p` processes of Augustus in parallel until there is no chunks left. You can pass parameters to Augustus via the `--extra` flag. At least a `--species=thing` is required by Augustus. 
+*IMPORTANT*: the `--extra` argument should be the last one in the command line due to shortcomings in the `argparse` python module.
 
 With all that in mind, a typical `parallel_augustus` command line will look like this:
 ```bash
