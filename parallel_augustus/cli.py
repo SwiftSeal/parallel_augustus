@@ -36,16 +36,6 @@ def main():
         required=False,
     )
     mandatory_args.add_argument(
-        "--chunks",
-        "-c",
-        action="store",
-        dest="chunks",
-        help="Number of chunks to divide the genome into.",
-        default=8,
-        type=int,
-        required=False,
-    )
-    mandatory_args.add_argument(
         "--processes",
         "-p",
         action="store",
@@ -79,7 +69,6 @@ def main():
     pipeline.run(
         args.input_genome,
         args.output_dir,
-        args.chunks,
         args.processes,
         args.augustus_params,
     )
