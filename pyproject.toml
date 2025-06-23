@@ -1,3 +1,39 @@
 [build-system]
-requires = ['setuptools>=42']
-build-backend = 'setuptools.build_meta'
+requires = ["setuptools>=42"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "parallel_augustus"
+version = "1.0.2"
+description = "Simple wrapper around Augustus to bring faster restitution times"
+readme = "README.md"
+license = { file = "LICENSE.md" }
+authors = [
+    { name = "Benjamin Istace" }
+]
+keywords = [
+    "bioinformatics",
+    "genomics",
+    "genome",
+    "annotation",
+    "augustus"
+]
+requires-python = ">=3.8"
+dependencies = [
+    "biopython",
+    "coloredlogs"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+    "License :: OSI Approved :: CEA CNRS Inria Logiciel Libre License, version 2.1 (CeCILL-2.1)",
+    "Programming Language :: Python :: 3.8",
+]
+
+[project.urls]
+Homepage = "https://github.com/bistace/parallel_augustus"
+Download = "https://github.com/bistace/parallel_augustus"
+
+[project.scripts]
+parallel_augustus = "parallel_augustus.cli:main"
